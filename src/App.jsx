@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import DisableDevtool from 'disable-devtool';
 import './App.css';
 
-// Import รูปภาพ Base64 จากไฟล์ assets.js
+// Import รูปภาพ Base64 จากโฟลเดอร์ assets
 import { LOGO_BASE64, ICONS_BASE64 } from './assets';
+
+// Import Custom Hook สำหรับป้องกัน
+import useProtect from './useProtect';
 
 const PACKAGES = [
   { 
@@ -14,7 +16,7 @@ const PACKAGES = [
     bundle: 'com.garena.game.kgth', 
     price: 'Free', 
     type: 'Decrypt', 
-    iconKey: 'rov', // อ้างอิง Key ให้ตรงกับใน assets.js
+    iconKey: 'rov', 
     downloadUrl: '/download.php?file=com.garena.game.kgth_1.63.11716331_F1X3R-Decrypt.ipa'
   },
   { 
@@ -41,34 +43,58 @@ const PACKAGES = [
   }
 ];
 
-export default function App() {
-  const [logoError, setLogoError] = useState(false);
-  const [iconErrors, setIconErrors] = useState({});
+function HeroLogoImg({ src, alt }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    DisableDevtool({
-      disableMenu: true,
-      disableSelect: true,
-      disableCopy: true,
-      disableCut: true,
-      disablePaste: true,
-      clearLog: true,
-    });
-  }, []);
+    if (!src) {
+      setError(true);
+      return;
+    }
+    const img = new Image();
+    img.src = src;
+    img.onload = () => setLoaded(true);
+    img.onerror = () => setError(true);
+  }, [src]);
+
+  if (error || !loaded) {
+    return <div className="skeleton-logo animate-pulse"></div>;
+  }
+
+  return <img className="hero-logo" src={src} alt={alt} />;
+}
+
+function PkgIconImg({ src, alt }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!src) {
+      setError(true);
+      return;
+    }
+    const img = new Image();
+    img.src = src;
+    img.onload = () => setLoaded(true);
+    img.onerror = () => setError(true);
+  }, [src]);
+
+  if (error || !loaded) {
+    return <div className="skeleton-icon animate-pulse"></div>;
+  }
+
+  return <img className="pkg-icon" src={src} alt={alt} />;
+}
+
+export default function App() {
+  // เรียกใช้งาน Hook ป้องกันทั้งหมดในบรรทัดเดียว
+  useProtect();
 
   return (
     <>
       <div className="hero">
-        {logoError || !LOGO_BASE64 ? (
-          <div className="skeleton-logo animate-pulse"></div>
-        ) : (
-          <img 
-            className="hero-logo" 
-            src={LOGO_BASE64} 
-            alt="F1X3R" 
-            onError={() => setLogoError(true)}
-          />
-        )}
+        <HeroLogoImg src={LOGO_BASE64} alt="F1X3R" />
         <h1>F1X3R Store</h1>
         <p>Download Tweaked Apps & Moded Games for Free &nbsp;&middot;&nbsp; {PACKAGES.length} packages</p>
       </div>
@@ -83,20 +109,10 @@ export default function App() {
       <div className="pkg-grid">
         {PACKAGES.map((pkg) => {
           const iconSrc = ICONS_BASE64 ? ICONS_BASE64[pkg.iconKey] : null;
-          const isIconError = iconErrors[pkg.id] || !iconSrc;
 
           const CardContent = (
             <>
-              {isIconError ? (
-                <div className="skeleton-icon animate-pulse"></div>
-              ) : (
-                <img 
-                  className="pkg-icon" 
-                  src={iconSrc} 
-                  alt={`${pkg.name} icon`} 
-                  onError={() => setIconErrors((prev) => ({ ...prev, [pkg.id]: true }))}
-                />
-              )}
+              <PkgIconImg src={iconSrc} alt={`${pkg.name} icon`} />
               <div className="pkg-info">
                 <div className="pkg-name">
                   {pkg.name}
