@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import DisableDevtool from 'disable-devtool';
 import './App.css';
 
-// Import รูปภาพ Base64 จากโฟลเดอร์ assets
+// Import รูปภาพ Base64 จากไฟล์ assets.js
 import { LOGO_BASE64, ICONS_BASE64 } from './assets';
-
-// Import Custom Hook สำหรับป้องกัน
-import useProtect from './useProtect';
 
 const PACKAGES = [
   { 
@@ -16,7 +14,7 @@ const PACKAGES = [
     bundle: 'com.garena.game.kgth', 
     price: 'Free', 
     type: 'Decrypt', 
-    iconKey: 'rov', 
+    iconKey: 'rov', // อ้างอิง Key ให้ตรงกับใน assets.js
     downloadUrl: '/download.php?file=com.garena.game.kgth_1.63.11716331_F1X3R-Decrypt.ipa'
   },
   { 
@@ -44,17 +42,33 @@ const PACKAGES = [
 ];
 
 export default function App() {
-  // เรียกใช้งาน Hook ป้องกันทั้งหมดในบรรทัดเดียว
-  useProtect();
+  const [logoError, setLogoError] = useState(false);
+  const [iconErrors, setIconErrors] = useState({});
+
+  useEffect(() => {
+    DisableDevtool({
+      disableMenu: true,
+      disableSelect: true,
+      disableCopy: true,
+      disableCut: true,
+      disablePaste: true,
+      clearLog: true,
+    });
+  }, []);
 
   return (
     <>
       <div className="hero">
-        <img 
-          className="hero-logo" 
-          src={LOGO_BASE64} 
-          alt="F1X3R"
-        />
+        {logoError || !LOGO_BASE64 ? (
+          <div className="skeleton-logo animate-pulse"></div>
+        ) : (
+          <img 
+            className="hero-logo" 
+            src={LOGO_BASE64} 
+            alt="F1X3R" 
+            onError={() => setLogoError(true)}
+          />
+        )}
         <h1>F1X3R Store</h1>
         <p>Download Tweaked Apps & Moded Games for Free &nbsp;&middot;&nbsp; {PACKAGES.length} packages</p>
       </div>
@@ -68,13 +82,21 @@ export default function App() {
 
       <div className="pkg-grid">
         {PACKAGES.map((pkg) => {
+          const iconSrc = ICONS_BASE64 ? ICONS_BASE64[pkg.iconKey] : null;
+          const isIconError = iconErrors[pkg.id] || !iconSrc;
+
           const CardContent = (
             <>
-              <img 
-                className="pkg-icon" 
-                src={ICONS_BASE64[pkg.iconKey]} 
-                alt={`${pkg.name} icon`}
-              />
+              {isIconError ? (
+                <div className="skeleton-icon animate-pulse"></div>
+              ) : (
+                <img 
+                  className="pkg-icon" 
+                  src={iconSrc} 
+                  alt={`${pkg.name} icon`} 
+                  onError={() => setIconErrors((prev) => ({ ...prev, [pkg.id]: true }))}
+                />
+              )}
               <div className="pkg-info">
                 <div className="pkg-name">
                   {pkg.name}
