@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import DisableDevtool from 'disable-devtool';
+import React from 'react';
 import './App.css';
 
-// Import รูปภาพ Base64 จากไฟล์ assets.js
+// Import รูปภาพ Base64 จากโฟลเดอร์ assets
 import { LOGO_BASE64, ICONS_BASE64 } from './assets';
+
+// Import Custom Hook สำหรับป้องกัน
+import useProtect from './useProtect';
 
 const PACKAGES = [
   { 
@@ -14,7 +16,7 @@ const PACKAGES = [
     bundle: 'com.garena.game.kgth', 
     price: 'Free', 
     type: 'Decrypt', 
-    iconKey: 'rov', // อ้างอิง Key ให้ตรงกับใน assets.js
+    iconKey: 'rov', 
     downloadUrl: '/download.php?file=com.garena.game.kgth_1.63.11716331_F1X3R-Decrypt.ipa'
   },
   { 
@@ -42,16 +44,8 @@ const PACKAGES = [
 ];
 
 export default function App() {
-  useEffect(() => {
-    DisableDevtool({
-      disableMenu: true,
-      disableSelect: true,
-      disableCopy: true,
-      disableCut: true,
-      disablePaste: true,
-      clearLog: true,
-    });
-  }, []);
+  // เรียกใช้งาน Hook ป้องกันทั้งหมดในบรรทัดเดียว
+  useProtect();
 
   return (
     <>
@@ -59,7 +53,7 @@ export default function App() {
         <img 
           className="hero-logo" 
           src={LOGO_BASE64} 
-          alt="F1X3R" 
+          alt="F1X3R"
         />
         <h1>F1X3R Store</h1>
         <p>Download Tweaked Apps & Moded Games for Free &nbsp;&middot;&nbsp; {PACKAGES.length} packages</p>
@@ -79,7 +73,7 @@ export default function App() {
               <img 
                 className="pkg-icon" 
                 src={ICONS_BASE64[pkg.iconKey]} 
-                alt={`${pkg.name} icon`} 
+                alt={`${pkg.name} icon`}
               />
               <div className="pkg-info">
                 <div className="pkg-name">
