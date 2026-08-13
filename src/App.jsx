@@ -45,37 +45,34 @@ const PACKAGES = [
 
 const TROLLSTORE_PACKAGES = [
   {
-    id: 'trollstore-app-1',
-    name: 'TrollStore App 1',
-    server: 'GL',
+    id: 'fxstorets',
+    name: 'FXStoreTS',
     version: '1.0.0',
-    bundle: 'com.f1x3r.trollapp1',
+    bundle: 'com.apple.FXStoreTS',
     price: 'Pro',
     type: 'Tool',
-    iconKey: 'trollstore1',
-    downloadUrl: '/download.php?file=trollstore_app_1.ipa'
+    iconKey: 'fxstorets',
+    downloadUrl: '/download.php?file=FXStoreTS.tipa'
   },
   {
-    id: 'trollstore-app-2',
-    name: 'TrollStore App 2',
-    server: 'GL',
-    version: '1.0.0',
-    bundle: 'com.f1x3r.trollapp2',
+    id: 'fxdecryptts',
+    name: 'FXDecryptTS',
+    version: '1.2.0b2',
+    bundle: 'com.apple.FXDecryptTS',
     price: 'Pro',
     type: 'Tool',
-    iconKey: 'trollstore2',
-    downloadUrl: '/download.php?file=trollstore_app_2.ipa'
+    iconKey: 'fxdecryptts',
+    downloadUrl: '/download.php?file=FXDecryptTS.tipa'
   },
   {
-    id: 'trollstore-app-3',
-    name: 'TrollStore App 3',
-    server: 'GL',
+    id: 'fxdecryptds',
+    name: 'FXDecryptDS',
     version: '1.0.0',
-    bundle: 'com.f1x3r.trollapp3',
+    bundle: 'com.apple.FXDecryptDS',
     price: 'Pro',
     type: 'Tool',
-    iconKey: 'trollstore3',
-    downloadUrl: '/download.php?file=trollstore_app_3.ipa'
+    iconKey: 'fxdecryptds',
+    downloadUrl: '/download.php?file=FXDecryptDS.ipa'
   }
 ];
 
@@ -140,7 +137,7 @@ export default function App() {
       <div className="divider"></div>
 
       <div className="section-header">
-        <h2>Packages</h2>
+        <h2>IPA Decrypt</h2>
         <span className="badge">{PACKAGES.length}</span>
       </div>
 
@@ -192,7 +189,7 @@ export default function App() {
       <div className="divider"></div>
 
       <div className="section-header">
-        <h2>Only TrollStore</h2>
+        <h2>Tool</h2>
         <span className="badge">{TROLLSTORE_PACKAGES.length}</span>
       </div>
 
