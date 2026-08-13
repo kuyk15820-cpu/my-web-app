@@ -50,7 +50,7 @@ const TROLLSTORE_PACKAGES = [
     version: '1.0.0',
     bundle: 'com.apple.FX-StoreTS',
     price: 'Pro',
-    type: 'Tool',
+    type: 'Tools',
     iconKey: 'fx-storets'
   },
   {
@@ -59,7 +59,7 @@ const TROLLSTORE_PACKAGES = [
     version: '1.2.0b2',
     bundle: 'com.apple.FX-DecryptTS',
     price: 'Pro',
-    type: 'Tool',
+    type: 'Tools',
     iconKey: 'fx-decryptts'
   },
   {
@@ -68,7 +68,7 @@ const TROLLSTORE_PACKAGES = [
     version: '1.0.0',
     bundle: 'com.apple.FX-DecryptDS',
     price: 'Pro',
-    type: 'Tool',
+    type: 'Tools',
     iconKey: 'fx-decryptds'
   }
 ];
@@ -128,7 +128,7 @@ export default function App() {
       <div className="hero">
         <HeroLogoImg src={LOGO_BASE64} alt="F1X3R" />
         <h1>F1X3R Store</h1>
-        <p>Download Tweaked Apps & Moded Games for Free &nbsp;&middot;&nbsp; {totalPackages} packages</p>
+        <p>Download Decrypted IPAs & iOS/iPadOS Utility Tools &nbsp;&middot;&nbsp; {totalPackages} packages</p>
       </div>
 
       <div className="divider"></div>
@@ -184,7 +184,7 @@ export default function App() {
       </div>
 
       <div className="section-header">
-        <h2>Tool</h2>
+        <h2>Tools</h2>
         <span className="badge">{TROLLSTORE_PACKAGES.length}</span>
       </div>
 
