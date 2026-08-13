@@ -43,6 +43,42 @@ const PACKAGES = [
   }
 ];
 
+const TROLLSTORE_PACKAGES = [
+  {
+    id: 'trollstore-app-1',
+    name: 'TrollStore App 1',
+    server: 'GL',
+    version: '1.0.0',
+    bundle: 'com.f1x3r.trollapp1',
+    price: 'Pro',
+    type: 'Tool',
+    iconKey: 'trollstore1',
+    downloadUrl: '/download.php?file=trollstore_app_1.ipa'
+  },
+  {
+    id: 'trollstore-app-2',
+    name: 'TrollStore App 2',
+    server: 'GL',
+    version: '1.0.0',
+    bundle: 'com.f1x3r.trollapp2',
+    price: 'Pro',
+    type: 'Tool',
+    iconKey: 'trollstore2',
+    downloadUrl: '/download.php?file=trollstore_app_2.ipa'
+  },
+  {
+    id: 'trollstore-app-3',
+    name: 'TrollStore App 3',
+    server: 'GL',
+    version: '1.0.0',
+    bundle: 'com.f1x3r.trollapp3',
+    price: 'Pro',
+    type: 'Tool',
+    iconKey: 'trollstore3',
+    downloadUrl: '/download.php?file=trollstore_app_3.ipa'
+  }
+];
+
 function HeroLogoImg({ src, alt }) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -91,12 +127,14 @@ export default function App() {
   // เรียกใช้งาน Hook ป้องกันทั้งหมดในบรรทัดเดียว
   useProtect();
 
+  const totalPackages = PACKAGES.length + TROLLSTORE_PACKAGES.length;
+
   return (
     <>
       <div className="hero">
         <HeroLogoImg src={LOGO_BASE64} alt="F1X3R" />
         <h1>F1X3R Store</h1>
-        <p>Download Tweaked Apps & Moded Games for Free &nbsp;&middot;&nbsp; {PACKAGES.length} packages</p>
+        <p>Download Tweaked Apps & Moded Games for Free &nbsp;&middot;&nbsp; {totalPackages} packages</p>
       </div>
 
       <div className="divider"></div>
@@ -128,6 +166,58 @@ export default function App() {
                 <div className="pkg-tags">
                   {pkg.price && <span className="pkg-price">{pkg.price}</span>}
                   {pkg.type && <span className="pkg-type">{pkg.type}</span>}
+                </div>
+              </div>
+            </>
+          );
+
+          return pkg.downloadUrl ? (
+            <a 
+              key={pkg.id} 
+              href={pkg.downloadUrl} 
+              download 
+              className="pkg-card"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              {CardContent}
+            </a>
+          ) : (
+            <div className="pkg-card" key={pkg.id}>
+              {CardContent}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="divider"></div>
+
+      <div className="section-header">
+        <h2>Only TrollStore</h2>
+        <span className="badge">{TROLLSTORE_PACKAGES.length}</span>
+      </div>
+
+      <div className="pkg-grid">
+        {TROLLSTORE_PACKAGES.map((pkg) => {
+          const iconSrc = ICONS_BASE64 ? ICONS_BASE64[pkg.iconKey] : null;
+
+          const CardContent = (
+            <>
+              <PkgIconImg src={iconSrc} alt={`${pkg.name} icon`} />
+              <div className="pkg-info">
+                <div className="pkg-name">
+                  {pkg.name}
+                  {pkg.server && (
+                    <>
+                      &nbsp;&middot;&nbsp;
+                      <span className="pkg-server-text">{pkg.server}</span>
+                    </>
+                  )}
+                </div>
+                <div className="pkg-version">Version: {pkg.version}</div>
+                <div className="pkg-bundle">Identifier: {pkg.bundle}</div>
+                <div className="pkg-tags">
+                  {pkg.price && <span className="pkg-type price-pro">{pkg.price}</span>}
+                  {pkg.type && <span className="pkg-type tool">{pkg.type}</span>}
                 </div>
               </div>
             </>
