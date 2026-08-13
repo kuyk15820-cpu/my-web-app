@@ -45,34 +45,31 @@ const PACKAGES = [
 
 const TROLLSTORE_PACKAGES = [
   {
-    id: 'fxstorets',
-    name: 'FXStoreTS',
+    id: 'fx-storets',
+    name: 'FX-StoreTS',
     version: '1.0.0',
-    bundle: 'com.apple.FXStoreTS',
+    bundle: 'com.apple.FX-StoreTS',
     price: 'Pro',
     type: 'Tool',
-    iconKey: 'fxstorets',
-    downloadUrl: '/download.php?file=FXStoreTS.tipa'
+    iconKey: 'fx-storets'
   },
   {
-    id: 'fxdecryptts',
-    name: 'FXDecryptTS',
+    id: 'fx-decryptts',
+    name: 'FX-DecryptTS',
     version: '1.2.0b2',
-    bundle: 'com.apple.FXDecryptTS',
+    bundle: 'com.apple.FX-DecryptTS',
     price: 'Pro',
     type: 'Tool',
-    iconKey: 'fxdecryptts',
-    downloadUrl: '/download.php?file=FXDecryptTS.tipa'
+    iconKey: 'fx-decryptts'
   },
   {
-    id: 'fxdecryptds',
-    name: 'FXDecryptDS',
+    id: 'fx-decryptds',
+    name: 'FX-DecryptDS',
     version: '1.0.0',
-    bundle: 'com.apple.FXDecryptDS',
+    bundle: 'com.apple.FX-DecryptDS',
     price: 'Pro',
     type: 'Tool',
-    iconKey: 'fxdecryptds',
-    downloadUrl: '/download.php?file=FXDecryptDS.ipa'
+    iconKey: 'fx-decryptds'
   }
 ];
 
@@ -185,8 +182,6 @@ export default function App() {
           );
         })}
       </div>
-
-      <div className="divider"></div>
 
       <div className="section-header">
         <h2>Tool</h2>
