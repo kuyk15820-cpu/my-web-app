@@ -233,6 +233,18 @@ body {
   padding: 1px 7px;
 }
 
+.pkg-type.price-pro,
+.price-pro {
+  color: #9898ac !important;
+  background: rgba(152, 152, 172, 0.12) !important;
+}
+
+.pkg-type.tool,
+.tool {
+  color: #5eb7ff !important;
+  background: rgba(94, 183, 255, 0.12) !important;
+}
+
 /* ── Footer ───────────────────────────────────── */
 footer {
   text-align: center;
