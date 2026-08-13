@@ -235,14 +235,14 @@ body {
 
 .pkg-type.price-pro,
 .price-pro {
-  color: #9898ac !important;
-  background: rgba(152, 152, 172, 0.12) !important;
+  color: #ffd700 !important;
+  background: rgba(255, 215, 0, 0.12) !important;
 }
 
 .pkg-type.tool,
 .tool {
-  color: #5eb7ff !important;
-  background: rgba(94, 183, 255, 0.12) !important;
+  color: #3b82f6 !important;
+  background: rgba(59, 130, 246, 0.12) !important;
 }
 
 /* ── Footer ───────────────────────────────────── */
